@@ -1,0 +1,18 @@
+<h1>Weather App</h1>
+
+<input [(ngModel)]="cityName" (keyUp.enter)="onKeyUp()" placeholder="Press enter to search" />
+<p></p>
+
+<table id="head">
+    <thead>
+        <tr>
+            <th>City Name: </th>
+            <th>Country Code</th>
+        </tr>
+    </thead>
+
+    <tr *ngIf="weather">
+        <td><a routerLink="detail/{{weather.id}}">{{weather.name}}</a></td>
+        <td>{{weather.sys.country}}</td>
+    </tr>
+</table>

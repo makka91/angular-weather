@@ -1,0 +1,62 @@
+<table id="head" *ngIf="weather">
+  <caption id="caption">Current Weather in {{weather.name}}</caption>
+  <thead>
+    <tr>
+      <th>City: </th>
+      <th>Latitude: </th>
+      <th>Longitude: </th>
+      <th>Temperature: </th>
+      <th>Weather: </th>
+      <th>Wind Speed: </th>
+      <th>Wind Direction: </th>
+      <th>Sunrise: </th>
+      <th>Sunset: </th>
+      <th>Clouds: </th>
+      <!-- På Johans inrådan används här väder senaste timmen,
+      då det inte finns någon 3-timmarsväder i API:t -->
+      <th>Snow last 1h: </th>
+      <th>Rain last 1h: </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>{{weather.name}}</td>
+      <td>{{weather.coord.lat}}</td>
+      <td>{{weather.coord.lon}}</td>
+      <td>{{weather.main.temp}}&#8451;</td>
+      <td>{{weather.weather[0].description}}</td>
+      <td>{{weather.wind.speed}} m/s</td>
+      <td>{{weather.wind.deg}}&deg;</td>
+      <td>{{weather.sys.sunrise * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{weather.sys.sunset * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{weather.clouds.all}}%</td>
+      <td>{{weather.snow ? weather.snow["1h"] : "0"}}mm</td>
+      <td>{{weather.rain ? weather.rain["1h"] : "0"}}mm</td>
+    </tr>
+  </tbody>
+</table><br>
+
+<table id="head" *ngIf="forecast">
+  <caption id="caption">Forecast for {{weather.name}}</caption>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temperature</th>
+      <th>Wind Speed</th>
+      <th>Air Pressure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of forecast.list | dateTransform">
+      <td>{{item.dt * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{item.main.temp}}</td>
+      <td>{{item.wind.speed}}</td>
+      <td>{{item.main.pressure}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="goBack()">
+  Gå tillbaka
+</button>
